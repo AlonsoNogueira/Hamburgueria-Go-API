@@ -10,7 +10,7 @@ import (
 )
 
 func ConnectPostgres() *gorm.DB {
-	err := godotenv.Load()
+	err := godotenv.Overload()
 	if err != nil {
 		log.Println("Warning: .env file not found")
 	}
