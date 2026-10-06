@@ -31,6 +31,7 @@ func (sh *SnacksHandler) CreateSnackHandler(ginContext *gin.Context) {
 
 	if err := sh.service.CreateSnackService(&snack); err != nil {
 		ginContext.JSON(http.StatusBadRequest, gin.H{
+			"alert": "error to create a new Snack",
 			"error": err.Error(),
 		})
 		return
@@ -79,7 +80,7 @@ func (sh *SnacksHandler) DeleteSnackHandler(ginContext *gin.Context) {
 		return
 	}
 
-	ginContext.JSON(http.StatusNoContent, nil)
+	ginContext.JSON(http.StatusNoContent, "delete employer sucessfuly")
 }
 
 func (sh *SnacksHandler) UpdateSnackHandler(ginContext *gin.Context) {
