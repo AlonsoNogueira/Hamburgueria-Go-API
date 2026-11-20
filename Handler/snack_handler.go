@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	model "github.com/alnszzx/HamburgueriaGo/Database/Model"
+	dto "github.com/alnszzx/HamburgueriaGo/Dto"
 	service "github.com/alnszzx/HamburgueriaGo/Service"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -37,7 +38,12 @@ func (sh *SnacksHandler) CreateSnackHandler(ginContext *gin.Context) {
 		return
 	}
 
-	ginContext.JSON(http.StatusCreated, snack)
+	dto.SuccessResponse(
+		ginContext,
+		"Create new snack successfuly",
+		&snack,
+		http.StatusCreated,
+	)
 }
 
 func (sh *SnacksHandler) GetSnackByIdHandler(ginContext *gin.Context) {
@@ -59,7 +65,12 @@ func (sh *SnacksHandler) GetSnackByIdHandler(ginContext *gin.Context) {
 		return
 	}
 
-	ginContext.JSON(http.StatusOK, snack)
+	dto.SuccessResponse(
+		ginContext,
+		"Snack with Id found",
+		snack,
+		http.StatusOK,
+	)
 }
 
 func (sh *SnacksHandler) DeleteSnackHandler(ginContext *gin.Context) {
@@ -80,7 +91,12 @@ func (sh *SnacksHandler) DeleteSnackHandler(ginContext *gin.Context) {
 		return
 	}
 
-	ginContext.JSON(http.StatusNoContent, "delete employer sucessfuly")
+	dto.SuccessResponse[any](
+		ginContext,
+		"Snack delete to database successfuly",
+		nil,
+		http.StatusOK,
+	)
 }
 
 func (sh *SnacksHandler) UpdateSnackHandler(ginContext *gin.Context) {
@@ -110,7 +126,10 @@ func (sh *SnacksHandler) UpdateSnackHandler(ginContext *gin.Context) {
 		return
 	}
 
-	ginContext.JSON(http.StatusOK, gin.H{
-		"message": "Snack updated successfully",
-	})
+	dto.SuccessResponse[model.Snacks](
+		ginContext,
+		"Snack update sucessfuly",
+		&snack,
+		http.StatusOK,
+	)
 }
